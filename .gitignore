@@ -1,0 +1,46 @@
+# Generated based on user request for the 'Client' directory
+
+# Angular build and temporary files
+Client/dist
+Client/tmp
+Client/out-tsc
+Client/bazel-out
+
+# Node dependencies
+Client/node_modules
+Client/npm-debug.log
+Client/yarn-error.log
+
+# IDEs and editors
+Client/.idea/
+Client/.project
+Client/.classpath
+Client/.c9/
+Client/*.launch
+Client/.settings/
+Client/*.sublime-workspace
+
+# Visual Studio Code specific
+Client/.vscode/*
+!Client/.vscode/settings.json
+!Client/.vscode/tasks.json
+!Client/.vscode/launch.json
+!Client/.vscode/extensions.json
+Client/.history/*
+
+# Miscellaneous
+Client/.angular/cache
+Client/.sass-cache/
+Client/connect.lock
+Client/coverage
+Client/libpeerconnection.log
+Client/testem.log
+Client/typings
+
+# System files
+Client/.DS_Store
+Client/Thumbs.db
+
+Troco/.vs
+Troco/bin
+Troco/obj

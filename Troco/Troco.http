@@ -1,0 +1,6 @@
+@Troco_HostAddress = http://localhost:5116
+
+GET {{Troco_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

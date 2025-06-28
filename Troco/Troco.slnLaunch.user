@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Tudo",
+    "Projects": [
+      {
+        "Path": "Troco.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\TrocoClient\\TrocoClient.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
