@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OTroco.TrocoContext;
@@ -11,9 +12,11 @@ using OTroco.TrocoContext;
 namespace Troco.Migrations
 {
     [DbContext(typeof(TrocoDBContext))]
-    partial class TrocoDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250707015158_CategoriaAtiva")]
+    partial class CategoriaAtiva
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,9 +104,14 @@ namespace Troco.Migrations
                     b.Property<decimal>("Preco")
                         .HasColumnType("numeric");
 
+                    b.Property<long?>("VendedorId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
+
+                    b.HasIndex("VendedorId");
 
                     b.ToTable("Produtos");
                 });
@@ -184,34 +192,15 @@ namespace Troco.Migrations
                     b.ToTable("Vendedores");
                 });
 
-            modelBuilder.Entity("Troco.TrocoContext.ProdutoVendedor", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("ProdutoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("VendedorId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("VendedorId");
-
-                    b.ToTable("ProdutoVendedor");
-                });
-
             modelBuilder.Entity("OTroco.TrocoContext.Produto", b =>
                 {
                     b.HasOne("OTroco.TrocoContext.Categoria", "Categoria")
                         .WithMany()
                         .HasForeignKey("CategoriaId");
+
+                    b.HasOne("OTroco.TrocoContext.Vendedor", null)
+                        .WithMany("ProdutosComissionados")
+                        .HasForeignKey("VendedorId");
 
                     b.Navigation("Categoria");
                 });
@@ -258,25 +247,6 @@ namespace Troco.Migrations
                     b.Navigation("ProdutoAntigo");
 
                     b.Navigation("ProdutoNovo");
-                });
-
-            modelBuilder.Entity("Troco.TrocoContext.ProdutoVendedor", b =>
-                {
-                    b.HasOne("OTroco.TrocoContext.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OTroco.TrocoContext.Vendedor", "Vendedor")
-                        .WithMany("ProdutosComissionados")
-                        .HasForeignKey("VendedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Vendedor");
                 });
 
             modelBuilder.Entity("OTroco.TrocoContext.Comanda", b =>

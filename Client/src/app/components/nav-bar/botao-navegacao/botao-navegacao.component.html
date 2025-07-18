@@ -1,0 +1,11 @@
+<button
+  type="button"
+  [disabled]="botao.disabled"
+  [matTooltip]="botao.isLogo ? '' : botao.titulo"
+  [ngClass]="{
+      'logo-button': botao.isLogo,
+      'nav-button': !botao.isLogo
+    }">
+  <img class="logo-image" *ngIf="botao.isLogo" src="Logo.png" alt="O Troco">
+  <span *ngIf="!botao.isLogo">{{ botao.titulo }}</span>
+</button>

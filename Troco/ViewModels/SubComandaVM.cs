@@ -3,8 +3,8 @@
     public class SubComandaVM
     {
         public long Id { get; set; }
-        public LancamentoVM Lancamento { get; set; } = new LancamentoVM();
-        public VendedorVM Vendedor { get; set; } = new VendedorVM();
+        public LancamentoVM? Lancamento { get; set; }
+        public VendedorVM? Vendedor { get; set; }
         public List<TrocaVM> Trocas { get; set; } = new List<TrocaVM>();
 
         public decimal ValorParcialComissao { get; set; }

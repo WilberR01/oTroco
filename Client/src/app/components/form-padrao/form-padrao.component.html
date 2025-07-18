@@ -1,0 +1,58 @@
+<div class="form-container" *ngIf="config && form">
+  <header class="form-header">
+    <h2>{{ config.title }}</h2>
+  </header>
+
+  <main class="form-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      
+      <ng-container *ngFor="let field of config.fields">
+        <div [ngSwitch]="field.type" class="form-field-wrapper">
+          
+          <mat-form-field appearance="outline" *ngSwitchCase="'text'" class="w-full">
+            <mat-label>{{ field.label }}</mat-label>
+            <input matInput [placeholder]="field.placeholder || ''" [formControlName]="field.key" type="text">
+            <mat-error *ngIf="form.get(field.key)?.hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngSwitchCase="'number'" class="w-full">
+            <mat-label>{{ field.label }}</mat-label>
+            <input matInput [placeholder]="field.placeholder || ''" [formControlName]="field.key" type="number">
+             <mat-error *ngIf="form.get(field.key)?.hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+           <mat-form-field appearance="outline" *ngSwitchCase="'currency'" class="w-full">
+            <mat-label>{{ field.label }}</mat-label>
+            <span matPrefix>&nbsp;R$&nbsp;</span>
+            <input matInput [placeholder]="field.placeholder || '0,00'" [formControlName]="field.key" type="text">
+            <mat-error *ngIf="form.get(field.key)?.hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngSwitchCase="'date'" class="w-full">
+            <mat-label>{{ field.label }}</mat-label>
+            <input matInput [matDatepicker]="picker" [formControlName]="field.key" [placeholder]="field.placeholder || ''">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+             <mat-error *ngIf="form.get(field.key)?.hasError('required')">Campo obrigatório</mat-error>
+          </mat-form-field>
+
+          <div *ngSwitchCase="'toggle'" class="toggle-field">
+            <mat-slide-toggle [formControlName]="field.key">{{ field.label }}</mat-slide-toggle>
+          </div>
+
+        </div>
+      </ng-container>
+    </form>
+  </main>
+
+  <!-- Rodapé com os Botões -->
+  <footer class="form-footer">
+    <button mat-stroked-button color="warn" (click)="onCancelOrDelete()">
+      {{ isNew ? 'Limpar' : 'Excluir' }}
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
+      Confirmar
+    </button>
+  </footer>
+
+</div>

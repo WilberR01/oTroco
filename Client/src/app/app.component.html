@@ -1,5 +1,13 @@
+<header class="app-header-container">
+        <app-nav-bar></app-nav-bar>
+</header>
 <body class="app-root-container">
-    <form-padrao>
-        <input matInput placeholder="Placeholder">
-    </form-padrao>
+        <div class="container-central">
+                
+        </div>
+        <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <app-form-padrao [config]="FormCategoria" (formSubmittedSuccess)="onUserSaved($event)"
+                        (formDeletedSuccess)="onUserDeleted()">
+                </app-form-padrao>
+        </div>
 </body>
