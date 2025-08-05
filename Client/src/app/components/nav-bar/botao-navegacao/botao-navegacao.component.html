@@ -1,11 +1,27 @@
 <button
   type="button"
+  [matMenuTriggerFor]="botao.opcoes?.length ? menuOpcoes : null"
   [disabled]="botao.disabled"
   [matTooltip]="botao.isLogo ? '' : botao.titulo"
+  (click)="navegue(botao)"
   [ngClass]="{
-      'logo-button': botao.isLogo,
-      'nav-button': !botao.isLogo
-    }">
+    'logo-button': botao.isLogo,
+    'nav-button': !botao.isLogo
+  }">
   <img class="logo-image" *ngIf="botao.isLogo" src="Logo.png" alt="O Troco">
-  <span *ngIf="!botao.isLogo">{{ botao.titulo }}</span>
+  <span *ngIf="!botao.isLogo" style="display: flex; gap: 5px;">
+    <fa-icon *ngIf="botao.icone" [icon]="cafe"></fa-icon> 
+    {{ botao.titulo }}
+  </span>
 </button>
+
+<mat-menu
+  #menuOpcoes="matMenu"
+  class="menuOpcoes">
+
+  @for (extra of botao.opcoes; track extra) {
+    <button mat-menu-item (click)="navegue(extra)">
+      <span>{{ extra.titulo }}</span>
+    </button>
+  }
+</mat-menu>

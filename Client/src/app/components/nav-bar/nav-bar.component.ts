@@ -1,6 +1,5 @@
-// nav-bar.component.ts
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importe o CommonModule
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BotaoNavegacaoComponent } from './botao-navegacao/botao-navegacao.component';
 import { Botao } from './botao-navegacao/botao-navegacao.component';
 
@@ -15,26 +14,5 @@ import { Botao } from './botao-navegacao/botao-navegacao.component';
   styleUrl: './nav-bar.component.scss',
 })
 export class NavBarComponent {
-  botoes: Botao[] = [
-    {
-      titulo: "O Troco",
-      disabled: true,
-      isLogo: true
-    },
-    {
-      titulo: "Home",
-      rota: "/home",
-      disabled: false
-    },
-    {
-      titulo: "Emissão",
-      rota: "/emissoes",
-      disabled: false
-    },
-    {
-      titulo: "Categorias",
-      rota: "/categoria",
-      disabled: false
-    },
-  ];
+  @Input() botoes!: Botao[];
 }

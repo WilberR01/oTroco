@@ -1,13 +1,6 @@
 <header class="app-header-container">
-        <app-nav-bar></app-nav-bar>
+        <app-nav-bar [botoes]="botoes"></app-nav-bar>
 </header>
 <body class="app-root-container">
-        <div class="container-central">
-                
-        </div>
-        <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
-                <app-form-padrao [config]="FormCategoria" (formSubmittedSuccess)="onUserSaved($event)"
-                        (formDeletedSuccess)="onUserDeleted()">
-                </app-form-padrao>
-        </div>
+        <router-outlet></router-outlet>
 </body>

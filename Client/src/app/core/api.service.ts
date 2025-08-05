@@ -8,7 +8,9 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   post<T>(url: string, data: T): Observable<T> {
     return this.http.post<T>(url, data).pipe(
