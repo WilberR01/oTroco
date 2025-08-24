@@ -1,15 +1,18 @@
-// src/app/shared/form-padrao/form-padrao.component.ts
+/* =============================================================================
+    ARQUIVO: form-padrao.component.ts (Versão Corrigida e Versátil)
+    DESCRIÇÃO: Este componente agora funciona tanto dentro de um MatDialog
+               quanto diretamente em um template de página.
+   ============================================================================= */
 
-import { Component, Input, OnInit, SimpleChanges, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, Inject, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ApiService } from '../../core/api.service';
 import { MaterialModule } from '../../utils/material.module';
 import { FormConfig } from './form-config.interface';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-form-padrao',
@@ -24,28 +27,38 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class FormPadraoComponent<T extends { id: number | null | undefined }> implements OnInit {
 
+  @Input() config?: FormConfig<T>;
+  
+  @Output() formSubmittedSuccess = new EventEmitter<T>();
+  @Output() formDeletedSuccess = new EventEmitter<void>();
+  @Output() formCancelled = new EventEmitter<void>();
+
   form!: FormGroup;
   isNew = true;
+  activeConfig!: FormConfig<T>;
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private dialogRef: MatDialogRef<FormPadraoComponent<T>>,
-    @Inject(MAT_DIALOG_DATA) public config: FormConfig<T>
+    @Optional() private dialogRef: MatDialogRef<FormPadraoComponent<T>>,
+    @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: FormConfig<T>
   ) {}
 
   ngOnInit(): void {
+    this.activeConfig = this.dialogData || this.config!;
+    if (!this.activeConfig) {
+      console.error("FormPadraoComponent: Nenhuma configuração (config) foi fornecida.");
+      return;
+    }
     this.initForm();
   }
 
   private initForm(): void {
-    if (!this.config) return;
-
     this.form = this.fb.group({});
-    this.isNew = this.config.model.id === 0 || this.config.model.id == null;
+    this.isNew = this.activeConfig.model.id === 0 || this.activeConfig.model.id == null;
 
-    this.config.fields.forEach(field => {
-      const initialValue = (this.config.model as any)[field.key];
+    this.activeConfig.fields.forEach(field => {
+      const initialValue = (this.activeConfig.model as any)[field.key];
       const validators = field.required ? [Validators.required] : [];
       const desativado = field.disabled ? true : false;
       this.form.addControl(field.key, new FormControl({ value: initialValue, disabled: desativado }, validators));
@@ -55,54 +68,46 @@ export class FormPadraoComponent<T extends { id: number | null | undefined }> im
   onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      console.error('Formulário inválido!');
       return;
     }
 
-    const dataToSave: T = {
-      ...this.config.model,
-      ...this.form.value
-    };
+    const dataToSave: T = { ...this.activeConfig.model, ...this.form.value };
+    if (this.isNew) { (dataToSave as any).id = 0; }
 
-    if (this.isNew) {
-        (dataToSave as any).id = 0;
-    };
-
-    console.log('Enviando dados para:', this.config.saveUrl, dataToSave);
-    
-    this.apiService.post(this.config.saveUrl, dataToSave).subscribe({
+    this.apiService.post(this.activeConfig.saveUrl, dataToSave).subscribe({
       next: (response) => {
-        console.log('Salvo com sucesso!', response);
-        this.dialogRef.close(response as T);
+        if (this.dialogRef) {
+          this.dialogRef.close(response as T);
+        } else {
+          this.formSubmittedSuccess.emit(response as T);
+        }
       },
-      error: (err) => {
-        console.error('Erro ao salvar:', err);
-      }
+      error: (err) => console.error('Erro ao salvar:', err)
     });
   }
 
   onCancelOrDelete(): void {
     if (this.isNew) {
-      this.dialogRef.close();
+      this.form.reset();
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      } else {
+        this.formCancelled.emit();
+      }
     } else {
-      if (!this.config.deleteUrl) {
-        console.error('URL de exclusão não fornecida!');
-        return;
-      }
-
-      if (window.confirm('Tem certeza que deseja excluir?')) {
-        console.log('Enviando requisição DELETE para:', this.config.deleteUrl);
-        this.apiService.delete(this.config.deleteUrl).subscribe({
-          next: () => {
-            console.log('Excluído com sucesso!');
+      if (!this.activeConfig.deleteUrl) return;
+      
+      this.apiService.delete(this.activeConfig.deleteUrl).subscribe({
+        next: () => {
+          if (this.dialogRef) {
             this.dialogRef.close({ deleted: true });
-            this.form.reset();
-          },
-          error: (err) => {
-            console.error('Erro ao excluir:', err);
+          } else {
+            this.formDeletedSuccess.emit();
           }
-        });
-      }
+          this.form.reset();
+        },
+        error: (err) => console.error('Erro ao excluir:', err)
+      });
     }
   }
 }

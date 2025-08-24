@@ -1,24 +1,5 @@
 @use 'variables' as var;
 
-.home-page {
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
-  border-radius: 15px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: #efefef;
-  }
-}
-
 .home-header {
   background-color: var.$off;
   padding: 20px 30px;

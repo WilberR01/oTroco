@@ -1,0 +1,25 @@
+<div class="list-container">
+    @if (!items || items.length === 0) {
+    <div class="empty-state">
+        <span>Nenhum item cadastrado.</span>
+    </div>
+    } @else {
+    <div class="header-listagem">
+        <h4>{{ items.length }} {{items.length > 1 ? 'itens registrados' : 'item registrado'}}</h4>
+    </div>
+        @for (item of items; track $index) {
+            <div class="list-item-card" [class.selected]="idItemSelecionado === item.id" (click)="onItemClick(item.payload)">
+                <header class="item-header">
+                    <span class="item-id">#{{ item.id }}</span>
+                    <h4 class="item-title">{{ item.titulo }}</h4>
+                </header>
+                <main class="item-body">
+                    <div *ngFor="let campo of getCamposArray(item.campos)" class="info-field">
+                        <span class="info-label">{{ campo.key }}</span>
+                        <span class="info-value">{{ campo.value }}</span>
+                    </div>
+                </main>
+            </div>
+        }
+    }
+</div>

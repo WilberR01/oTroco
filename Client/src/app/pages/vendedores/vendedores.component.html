@@ -1,1 +1,6 @@
-<p>vendedores works!</p>
+<div class="page">
+    <app-pagina-cadastro [tituloPagina]="'Cadastro de Vendedores'" [formConfig]="formConfig"
+        [listItems]="vendedoresListItems" (itemSelecionado)="onVendedorSelecionado($event)"
+        (formSubmetido)="onFormularioSubmetido($event)">
+    </app-pagina-cadastro>
+</div>

@@ -1,0 +1,41 @@
+@use 'variables' as var;
+
+.page-header {
+  background-color: var.$off;
+  padding: 20px 30px;
+  border-bottom: 1px solid var.$color-border;
+
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var.$color-text-primary;
+    margin: 0;
+  }
+}
+
+.page-content {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  gap: 30px;
+  padding: 30px;
+  background-color: #f9fafb;
+  height: calc(100vh - 81px);
+  overflow-y: hidden;
+}
+
+.form-section, .list-section {
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.form-section::-webkit-scrollbar, .list-section::-webkit-scrollbar {
+  width: 6px;
+}
+.form-section::-webkit-scrollbar-thumb, .list-section::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+.form-section::-webkit-scrollbar-track, .list-section::-webkit-scrollbar-track {
+  background: #efefef;
+  border-radius: 3px;
+}
