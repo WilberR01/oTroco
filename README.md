@@ -1,5 +1,6 @@
 O Troco - Sistema de Gestão de Trocas
-Um sistema robusto e intuitivo para o registro, controle e emissão de relatórios de trocas de produtos, projetado para automatizar o processo de gestão e cálculo de penalidades para vendedores.
+<br>
+Um sistema para o registro, controle e emissão de relatórios de trocas ou devoluções de produtos, projetado para automatizar o processo de gestão e cálculo de informações.
 
 📋 Sobre o Projeto
 O projeto O Troco nasceu da necessidade de substituir um processo manual e suscetível a erros, baseado em planilhas, por uma solução digital e centralizada. A aplicação permite o gerenciamento completo do ciclo de vida das trocas de produtos, desde o seu registro até o fechamento de "comandas" mensais, que consolidam as trocas irregulares e calculam os descontos salariais aplicáveis aos vendedores.
