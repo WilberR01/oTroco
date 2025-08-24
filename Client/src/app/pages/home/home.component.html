@@ -1,1 +1,40 @@
-<p>Home works!</p>
+<div class="home-page">
+  <header class="home-header">
+    <h1 class="home-header__title">Visão Geral</h1>
+    <button class="home-header__button" (click)="novaComanda()">Nova Comanda</button>
+  </header>
+
+  <main class="home-content">
+    <section class="comandas-section">
+      <h2 class="section-title">Comandas em Aberto</h2>
+      <div class="horizontal-scroll-container">
+        @if (comandasAbertas.length == 0) {
+            <div class="nenhum-item-encontrado">
+                <div>Nenhuma comanda aberta</div>
+            </div>
+        }
+        @for (comanda of comandasAbertas; track $index) {
+            <div class="card-wrapper">
+              <app-comanda-card [comanda]="comanda"></app-comanda-card>
+            </div>
+        }
+      </div>
+    </section>
+
+    <section class="comandas-section">
+        <h2 class="section-title">Comandas Encerradas</h2>
+        <div class="vertical-list-container">
+            @if (comandasFechadas.length == 0) {
+                <div class="nenhum-item-encontrado">
+                    <div>Nenhuma comanda aberta</div>
+                </div>
+            }
+            @for (comanda of comandasFechadas; track $index) {
+                <div class="card-wrapper-minimizado">
+                    <app-comanda-card [comanda]="comanda" [minimizado]="true"></app-comanda-card>
+                </div>
+            }
+        </div>
+    </section>
+  </main>
+</div>

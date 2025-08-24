@@ -1,0 +1,102 @@
+@use 'variables' as var;
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  border-radius: 15px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #efefef;
+  }
+}
+
+.home-header {
+  background-color: var.$off;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var.$color-border;
+  flex-shrink: 0;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var.$color-text-primary;
+    margin: 0;
+  }
+
+  &__button {
+    background-color: var.$secondary;
+    color: var.$off;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+    background-color: var.$color-success;
+  }
+  }
+}
+
+.home-content {
+  background-color: #f1f1f1;
+  flex-grow: 1;
+  padding: 0 30px 20px 30px;
+}
+
+.comandas-section {
+  & + & {
+    margin-top: 40px;
+  }
+}
+
+.section-title {
+  font-size: 1.25rem; // 20px
+  font-weight: 600;
+  color: var.$color-text-primary;
+  margin-bottom: 20px;
+}
+
+.horizontal-scroll-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #efefef;
+    border-radius: 4px;
+  }
+}
+
+.vertical-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.card-wrapper-minimizado{
+    width: 95%;
+}

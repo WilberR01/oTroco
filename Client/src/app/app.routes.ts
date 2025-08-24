@@ -4,6 +4,7 @@ import { CategoriasComponent } from './pages/categorias/categorias.component';
 import { ProdutosComponent } from './pages/produtos/produtos.component';
 import { VendedoresComponent } from './pages/vendedores/vendedores.component';
 import { EmissoesComponent } from './pages/emissoes/emissoes.component';
+import { LancamentosComponent } from './pages/lancamentos/lancamentos.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -12,4 +13,5 @@ export const routes: Routes = [
     { path: 'categorias', component: CategoriasComponent},
     { path: 'produtos', component: ProdutosComponent},
     { path: 'vendedores', component: VendedoresComponent},
+    { path: 'lancamentos', component: LancamentosComponent}
 ];

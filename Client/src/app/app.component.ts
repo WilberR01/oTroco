@@ -46,6 +46,11 @@ export class AppComponent {
           titulo: "Vendedores",
           rota: "vendedores",
           disabled: false
+        },
+        {
+          titulo: "Lancamentos",
+          rota: "lancamentos",
+          disabled: false
         }
       ],
       disabled: false
