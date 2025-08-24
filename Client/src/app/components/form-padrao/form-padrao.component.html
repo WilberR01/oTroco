@@ -1,4 +1,5 @@
-<div class="form-container" *ngIf="config && form">
+@if (config && form) {
+<div class="form-container">
   <header class="form-header">
     <h2>{{ config.title }}</h2>
   </header>
@@ -56,3 +57,4 @@
   </footer>
 
 </div>
+}

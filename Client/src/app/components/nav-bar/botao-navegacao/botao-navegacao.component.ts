@@ -52,6 +52,7 @@ export interface Botao {
   opcoes?: SubBotao[] | null;
   icone?: boolean;
 }
+
 export interface SubBotao {
   titulo: string;
   rota?: string | null;
