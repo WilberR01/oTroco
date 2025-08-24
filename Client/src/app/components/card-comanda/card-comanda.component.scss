@@ -1,0 +1,137 @@
+@use 'variables' as var;
+
+.comanda-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var.$color-surface;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden;
+  width: 280px;
+  flex-shrink: 0;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  &.status--aberta {
+    border-left-color: var.$color-success;
+    .header__status-tag { background-color: var.$color-success; }
+  }
+
+  &.status--fechada {
+    &:hover {
+    transform:none;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  }
+    border-left-color: var.$color-danger;
+    .header__status-tag { background-color: var.$color-danger; }
+  }
+
+  &.minimizado {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 20px;
+    border-left-width: 3px;
+
+    .minimizado__title {
+      font-weight: 600;
+      color: var.$color-text-primary;
+    }
+
+    .action-button {
+      &:hover {
+        color: var.$color-text-primary;
+      }
+    }
+  }
+}
+
+.comanda-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var.$color-border;
+
+  .header__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var.$color-text-primary;
+    margin: 0;
+  }
+
+  .header__status-tag {
+    color: var.$off;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+  }
+}
+
+.comanda-card__body {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+
+  .data-point {
+    text-align: center;
+    &__label {
+      display: block;
+      font-size: 0.875rem;
+      color: var.$color-text-secondary;
+      margin-bottom: 4px;
+    }
+    &__value {
+      display: block;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var.$color-text-primary;
+      line-height: 1.1;
+      &--small { font-size: 1.875rem; }
+    }
+  }
+}
+
+.comanda-card__actions {
+  display: flex;
+  justify-content: space-around;
+  background-color: var.$color-background;
+  border-top: 1px solid var.$color-border;
+  padding: 8px;
+
+  .action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    color: var.$color-text-secondary;
+    transition: background-color 0.2s, color 0.2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var.$color-text-primary;
+    }
+
+    &:disabled {
+      color: #d1d5db;
+      cursor: not-allowed;
+      background-color: transparent;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
