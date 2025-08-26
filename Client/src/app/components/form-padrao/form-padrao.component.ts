@@ -1,10 +1,10 @@
 /* =============================================================================
     ARQUIVO: form-padrao.component.ts (Versão Corrigida e Versátil)
-    DESCRIÇÃO: Este componente agora funciona tanto dentro de um MatDialog
+    DESCRIÇÃO: Este componente agora funciona tanto dentro de um MatDialog 
                quanto diretamente em um template de página.
    ============================================================================= */
 
-import { Component, Input, OnInit, Output, EventEmitter, Inject, Optional } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, Inject, Optional, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +42,8 @@ export class FormPadraoComponent<T extends { id: number | null | undefined }> im
     private apiService: ApiService,
     @Optional() private dialogRef: MatDialogRef<FormPadraoComponent<T>>,
     @Optional() @Inject(MAT_DIALOG_DATA) private dialogData: FormConfig<T>
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.activeConfig = this.dialogData || this.config!;
@@ -51,6 +52,13 @@ export class FormPadraoComponent<T extends { id: number | null | undefined }> im
       return;
     }
     this.initForm();
+  }
+
+  ngOnChanges(changes: any) {
+    if (changes.config && changes.config.currentValue) {
+      this.activeConfig = this.config!;
+      this.initForm();
+    }
   }
 
   private initForm(): void {
@@ -89,11 +97,7 @@ export class FormPadraoComponent<T extends { id: number | null | undefined }> im
   onCancelOrDelete(): void {
     if (this.isNew) {
       this.form.reset();
-      if (this.dialogRef) {
-        this.dialogRef.close();
-      } else {
-        this.formCancelled.emit();
-      }
+      if (!this.dialogRef) this.formCancelled.emit();
     } else {
       if (!this.activeConfig.deleteUrl) return;
       

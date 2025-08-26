@@ -1,8 +1,6 @@
 body { height: 100vh; overflow: hidden;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
-
 .page {
   display: flex;
   flex-direction: column;
@@ -13,10 +11,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   &::-webkit-scrollbar {
     height: 4px;
   }
+
   &::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 14px;
   }
+
   &::-webkit-scrollbar-track {
     background: #efefef;
   }

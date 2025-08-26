@@ -23,10 +23,6 @@ export class CadastroPadraoComponent<T extends { id: number | null | undefined}>
     this.itemSelecionado.emit(item);
   }
 
-  onItemNaoSelecionadoNaLista(): void {
-    this.itemSelecionado.emit();
-  }
-
   onFormSubmetidoComSucesso(itemSalvo: any): void {
     this.formSubmetido.emit(itemSalvo);
   }

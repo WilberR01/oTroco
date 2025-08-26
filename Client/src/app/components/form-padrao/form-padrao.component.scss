@@ -1,9 +1,14 @@
+@use 'variables' as var;
+
 :host {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-}
+
+  ::ng-deep .mat-stroked-button.mat-warn {
+    color: var.$color-danger;
+    border-color: var.$color-danger;
+  }}
 
 .form-container {
   width: 500px;
@@ -61,3 +66,4 @@
   border-radius: 20px !important;
   min-width: 100px;
 }
+

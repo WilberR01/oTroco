@@ -71,12 +71,10 @@ export class VendedoresComponent implements OnInit {
   }
 
   onVendedorSelecionado(vendedor: Vendedor): void {
-    console.log('Vendedor selecionado:', vendedor);
     this.criarConfigFormulario(vendedor);
   }
 
   onFormularioSubmetido(vendedorSalvo: Vendedor): void {
-    console.log('Formulário submetido:', vendedorSalvo);
     this.carregarVendedores();
     this.criarConfigFormulario();
   }

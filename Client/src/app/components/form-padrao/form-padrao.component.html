@@ -1,13 +1,13 @@
-@if (config && form) {
+@if (activeConfig && form) {
 <div class="form-container">
   <header class="form-header">
-    <h2>{{ config.title }}</h2>
+    <h2>{{ activeConfig.title }}</h2>
   </header>
 
   <main class="form-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       
-      <ng-container *ngFor="let field of config.fields">
+      <ng-container *ngFor="let field of activeConfig.fields">
         <div [ngSwitch]="field.type" class="form-field-wrapper">
           
           <mat-form-field appearance="outline" *ngSwitchCase="'text'" class="w-full">
@@ -46,9 +46,8 @@
     </form>
   </main>
 
-  <!-- Rodapé com os Botões -->
   <footer class="form-footer">
-    <button mat-stroked-button color="warn" (click)="onCancelOrDelete()">
+    <button mat-stroked-button (click)="onCancelOrDelete()">
       {{ isNew ? 'Limpar' : 'Excluir' }}
     </button>
     <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">
